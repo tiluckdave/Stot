@@ -1,19 +1,16 @@
 # Importing Libraries required for the bot to function
 import discord
 import os
-import sqlite3
 import asyncio
 from dotenv import load_dotenv
 from discord.ext import commands, tasks
-from pretty_help import PrettyHelp
-from itertools import cycle
 from datetime import datetime
 from discord_slash import SlashCommand
 import random
 
 # Getting Token from .env file
 load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
+TOKEN = os.environ.get('DISCORD_TOKEN')
 
 # Adding Intents
 intents = discord.Intents.default()

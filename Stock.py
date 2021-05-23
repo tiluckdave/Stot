@@ -1,9 +1,9 @@
 import discord
 import random
-import requests
-import Util
 from discord.ext import commands
 from bselib.bse import BSE
+
+loading_embed = discord.Embed(description="loading...")
 
 
 class Stock(commands.Cog):
@@ -17,7 +17,7 @@ class Stock(commands.Cog):
     )
     async def search(self, ctx, term=None):
         b = BSE()
-        msg = await ctx.send(embed=Util.loading_embed)
+        msg = await ctx.send(embed=loading_embed)
         searchEmbed = discord.Embed(title=f"Your Search '{term}'",
                                     description=f"List of all Stocks based on your search.\nUse `{self.client.command_prefix[0]}quote <script-code>` to view all details of respective company.\nSource: [bseindia.com](https://www.bseindia.com/)",
                                     colour=random.randint(0, 0xffffff)
@@ -36,7 +36,7 @@ class Stock(commands.Cog):
 
     @commands.command(name='quote', aliases=['estimate', 'q'], help="Returns a detailed quote of provided company id.")
     async def quote(self, ctx, cid=None):
-        msg = await ctx.send(embed=Util.loading_embed)
+        msg = await ctx.send(embed=loading_embed)
         b = BSE()
         data = b.quote(cid)
         QuoteEmbed = discord.Embed(
@@ -55,7 +55,7 @@ class Stock(commands.Cog):
 
     @commands.command(name='top_gainers', aliases=['gainers', 'topg', 'tg'], help="Returns day's top gainers")
     async def top_gainers(self, ctx):
-        msg = await ctx.send(embed=Util.loading_embed)
+        msg = await ctx.send(embed=loading_embed)
         b = BSE()
         data = b.get_gainers()
         QuoteEmbed = discord.Embed(
@@ -72,7 +72,7 @@ class Stock(commands.Cog):
 
     @commands.command(name='top_losers', aliases=['losers', 'topl', 'tl'], help="Returns day's top gainers")
     async def top_losers(self, ctx):
-        msg = await ctx.send(embed=Util.loading_embed)
+        msg = await ctx.send(embed=loading_embed)
         b = BSE()
         data = b.get_losers()
         QuoteEmbed = discord.Embed(
@@ -89,7 +89,7 @@ class Stock(commands.Cog):
 
     @commands.command(name='news', aliases=['n'], help="Returns latest news related to provided stock script Id")
     async def news(self, ctx, cid=None):
-        msg = await ctx.send(embed=Util.loading_embed)
+        msg = await ctx.send(embed=loading_embed)
         b = BSE()
         data = b.news(cid)
         cs = b.quote(cid)
@@ -106,7 +106,7 @@ class Stock(commands.Cog):
 
     @commands.command(name='company_profile', aliases=['comp_profile', 'cprofile', 'info'], help="Returns detailed information of Company")
     async def company_profile(self, ctx, cid=None):
-        msg = await ctx.send(embed=Util.loading_embed)
+        msg = await ctx.send(embed=loading_embed)
         b = BSE()
         info = b.comp_profile(cid)
         try:
@@ -126,7 +126,7 @@ class Stock(commands.Cog):
 
     @commands.command(name='analysis', aliases=['study', 'review', 'research'], help="Returns detailed analysis of Company")
     async def analysis(self, ctx, cid=None):
-        msg = await ctx.send(embed=Util.loading_embed)
+        msg = await ctx.send(embed=loading_embed)
         b = BSE()
         info = b.analysis(cid)
         cs = b.quote(cid)
@@ -154,6 +154,7 @@ class Stock(commands.Cog):
         QuoteEmbed.set_author(name="{}".format(
             ctx.message.author), icon_url=ctx.message.author.avatar_url)
         await msg.edit(embed=QuoteEmbed)
+
 
 def setup(client):
     client.add_cog(Stock(client))
