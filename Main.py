@@ -5,7 +5,6 @@ import asyncio
 from dotenv import load_dotenv
 from discord.ext import commands, tasks
 from datetime import datetime
-from discord_slash import SlashCommand
 import random
 
 # Getting Token from .env file
@@ -20,8 +19,6 @@ intents.guilds = True
 # Setting Prefix
 client = commands.Bot(command_prefix=[
                       '_'], case_insensitive=True, strip_after_prefix=True, intents=intents)
-
-slash = SlashCommand(client, sync_commands=True)
 
 # Startup routine
 client.remove_command('help')
