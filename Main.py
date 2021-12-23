@@ -134,3 +134,5 @@ async def on_command_error(ctx, error):
     await ctx.send(embed=ErrorEmbed, delete_after=10)
 
 client.run(TOKEN)
+
+# This is the end of file
